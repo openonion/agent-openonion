@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { LuArrowLeft } from 'react-icons/lu'
-import { marked } from 'marked'
+import { LuArrowLeft, LuLock } from 'react-icons/lu'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import InstallSnippet from '@/components/InstallSnippet'
@@ -12,8 +11,6 @@ import {
   itemTypeLabel,
   itemInstallTarget,
 } from '@/lib/agents'
-
-marked.setOptions({ gfm: true, breaks: false })
 
 type Params = { user: string; item: string }
 
@@ -54,7 +51,6 @@ export default async function ItemPage({ params }: { params: Promise<Params> }) 
   if (!found) notFound()
   const { agent, item } = found
   const target = itemInstallTarget(item.type, agent.profile.alias, item.slug)
-  const html = marked.parse(item.body) as string
 
   return (
     <>
@@ -105,10 +101,22 @@ export default async function ItemPage({ params }: { params: Promise<Params> }) 
                 </dl>
               ) : null}
 
-              <article
-                className="prose-editorial mt-12"
-                dangerouslySetInnerHTML={{ __html: html }}
-              />
+              <div className="mt-12 rounded-lg border border-dashed border-line bg-paper-soft px-6 py-8 max-w-[58ch]">
+                <div className="flex items-start gap-3 text-ink-muted">
+                  <LuLock className="h-4 w-4 mt-0.5 text-ink-faint shrink-0" aria-hidden />
+                  <div>
+                    <p className="font-serif italic">
+                      Contents stay with the protocol — not the website.
+                    </p>
+                    <p className="mt-2 text-sm text-ink-dim leading-relaxed">
+                      The website lists what is published; the bundle is fetched and verified
+                      through the <span className="font-mono">oo</span> client against the
+                      author&apos;s ConnectOnion address. Subscribe to install the full {itemTypeLabel(item.type).toLowerCase()}
+                      {' '}locally.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <aside className="lg:sticky lg:top-20 lg:self-start space-y-6">
