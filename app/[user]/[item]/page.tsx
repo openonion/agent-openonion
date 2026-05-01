@@ -25,9 +25,26 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { user, item: slug } = await params
   const found = getItem(user, slug)
   if (!found) return { title: 'Not found' }
+  const { agent, item } = found
+  const title = `${item.type === 'command' ? '/' : ''}${item.name} · @${agent.profile.alias}`
+  const description =
+    item.description ||
+    `${itemTypeLabel(item.type)} published by ${agent.profile.name} on agent.openonion.ai. Subscribe with: oo subscribe ${agent.profile.alias}`
+  const canonical = `https://agent.openonion.ai/${agent.profile.alias}/${item.slug}`
   return {
-    title: `${found.item.name} · @${found.agent.profile.alias}`,
-    description: found.item.description,
+    title,
+    description,
+    keywords: item.tags,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      type: 'article',
+      authors: [agent.profile.name],
+      publishedTime: item.date,
+    },
+    twitter: { card: 'summary_large_image', title, description },
   }
 }
 

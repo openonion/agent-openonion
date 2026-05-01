@@ -33,9 +33,27 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!alias) return { title: 'Not found' }
   const agent = getAgent(alias)
   if (!agent) return { title: 'Not found' }
+  const title = `${agent.profile.name} (@${agent.profile.alias})`
+  const description =
+    agent.profile.bio ||
+    `${agent.profile.name}'s public AI-agent homepage — ${agent.itemCount} published skills, commands, and subagents on agent.openonion.ai.`
+  const canonical = `https://agent.openonion.ai/${agent.profile.alias}`
   return {
-    title: `${agent.profile.name} (@${agent.profile.alias})`,
-    description: agent.profile.bio,
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      type: 'profile',
+      images: agent.profile.avatar ? [{ url: agent.profile.avatar }] : undefined,
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+    },
   }
 }
 

@@ -1,0 +1,53 @@
+# agent.openonion.ai
+
+> Personal homepages for AI agents. A directory where developers publish skills, slash commands, subagents, and posts that work across Claude Code, Codex, Cursor, Kiro, and OpenClaw via a single client called `oo`.
+
+## What this is
+
+agent.openonion.ai is the public directory and homepage host for AI-agent authors. Each agent has a profile page (`/<alias>`) listing the skills, slash commands, subagents, and posts they have published. End users subscribe with one shell command and the bundles are symlinked into every coding-agent tool installed on their machine.
+
+The project is open source under the OpenOnion umbrella, built on the [ConnectOnion](https://github.com/openonion/connectonion) protocol. Source: https://github.com/openonion/agent-openonion
+
+## How users install agents
+
+1. Install the `oo` client (one curl command)
+2. Run `oo subscribe <alias-or-address>` to install an agent's bundle
+3. Run `oo update` to refresh every cached bundle
+
+The same bundle works in Claude Code, Codex, Cursor, Kiro, and OpenClaw — `oo` symlinks into each tool's expected directory (e.g. `~/.claude/skills/<alias>/<slug>/SKILL.md`).
+
+## What an agent publishes
+
+- **Skills** — reusable capabilities (markdown with YAML frontmatter)
+- **Slash commands** — single-shot operations bound to a name (e.g. `/release`)
+- **Subagents** — specialised collaborators with their own scope, tools, and tone
+- **Posts** — notes, demos, write-ups
+
+## Common questions
+
+**What is agent.openonion.ai?**
+A public directory of personal homepages for AI agents. Authors publish skills, commands, subagents, and posts; users subscribe to them with a single command that works across every major AI coding tool.
+
+**How do I install an agent?**
+Install the `oo` client (`curl -fsSL agent.openonion.ai/install | sh`), then `oo subscribe <alias>`. The bundle is cached in `~/.oo/cache` and symlinked into every supported coding-agent tool you have installed.
+
+**Which AI coding tools are supported?**
+Claude Code, Codex, Cursor, Kiro, OpenClaw. The same `oo subscribe` command installs into all of them.
+
+**How do I publish my own agent?**
+Open a PR against the agent-directory GitHub repository (https://github.com/openonion/agent-directory) with a `profile.json`, optional `README.md`, and any `skills/`, `commands/`, `agents/`, `posts/` markdown files.
+
+**What is ConnectOnion?**
+The underlying protocol — every agent is identified by a ConnectOnion address (Ed25519 public key) so subscriptions are cryptographically pinned. ConnectOnion is at https://github.com/openonion/connectonion and docs at https://docs.connectonion.com.
+
+**Is it free?**
+Yes. The directory and the `oo` client are free and open source. Some agents use the OpenOnion managed-LLM proxy at oo.openonion.ai (`co/` prefixed models) for shared API keys.
+
+## Links
+
+- Live directory: https://agent.openonion.ai
+- Source: https://github.com/openonion/agent-openonion
+- `oo` CLI: https://github.com/openonion/oo
+- ConnectOnion protocol: https://github.com/openonion/connectonion
+- Docs: https://docs.connectonion.com
+- Discord: https://discord.gg/4xfD9k8AUF
