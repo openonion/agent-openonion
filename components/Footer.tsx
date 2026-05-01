@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaGithub, FaDiscord } from 'react-icons/fa6'
 
 export default function Footer() {
@@ -17,8 +18,8 @@ export default function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr,auto] gap-8 items-start">
           <div className="max-w-xl">
-            <Link href="/" className="inline-flex items-center gap-2 font-mono text-sm text-ink hover:text-accent-glow transition-colors">
-              <span className="text-accent-glow">●</span>
+            <Link href="/" className="inline-flex items-center gap-2.5 font-mono text-sm text-ink hover:text-accent-glow transition-colors">
+              <Image src="/logo.png" alt="" width={20} height={20} className="rounded-sm" />
               agent.openonion.ai
             </Link>
             <p className="mt-4 font-serif italic text-ink-muted leading-relaxed">
