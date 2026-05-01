@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { LuArrowLeft } from 'react-icons/lu'
+import { marked } from 'marked'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import InstallSnippet from '@/components/InstallSnippet'
@@ -11,6 +12,8 @@ import {
   itemTypeLabel,
   itemInstallTarget,
 } from '@/lib/agents'
+
+marked.setOptions({ gfm: true, breaks: false })
 
 type Params = { user: string; item: string }
 
@@ -34,6 +37,7 @@ export default async function ItemPage({ params }: { params: Promise<Params> }) 
   if (!found) notFound()
   const { agent, item } = found
   const target = itemInstallTarget(item.type, agent.profile.alias, item.slug)
+  const html = marked.parse(item.body) as string
 
   return (
     <>
@@ -47,47 +51,47 @@ export default async function ItemPage({ params }: { params: Promise<Params> }) 
             <LuArrowLeft className="h-4 w-4" /> {agent.profile.name}
           </Link>
 
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-[1fr,20rem] gap-10">
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr,20rem] gap-12">
             <div className="min-w-0">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="font-mono text-xs uppercase tracking-wider text-accent-glow border border-accent/40 bg-accent/10 px-2 py-0.5 rounded">
-                  {itemTypeLabel(item.type)}
+              <div className="flex items-center gap-3 text-ink-faint mb-6">
+                <span className="font-mono text-eyebrow uppercase tracking-[0.2em]">
+                  §&nbsp;&nbsp;{itemTypeLabel(item.type)}
                 </span>
+                <span className="hidden sm:block h-px flex-1 max-w-[10rem] bg-line" />
                 {item.date ? (
-                  <span className="font-mono text-xs text-ink-faint">{item.date}</span>
+                  <span className="font-serif italic text-sm text-ink-faint">{item.date}</span>
                 ) : null}
+                <span className="font-mono text-xs text-ink-faint">{item.slug}.md</span>
               </div>
-              <h1 className="text-h1 font-semibold text-ink break-all">
-                {item.type === 'command' ? '/' : ''}
+              <h1 className="text-h1 font-semibold text-ink break-words leading-[1.05]">
+                {item.type === 'command' ? <span className="text-accent-glow">/</span> : ''}
                 {item.name}
               </h1>
               {item.description ? (
-                <p className="mt-3 text-ink-muted text-lg">{item.description}</p>
+                <p className="mt-4 font-serif italic text-ink-muted text-lg leading-relaxed max-w-[58ch]">{item.description}</p>
               ) : null}
 
-              {item.argumentHint ? (
-                <div className="mt-6 rounded-lg border border-line bg-paper-soft p-4 font-mono text-sm">
-                  <span className="text-ink-faint">arguments  </span>
-                  <span className="text-ink">{item.argumentHint}</span>
-                </div>
+              {(item.argumentHint || item.allowedTools) ? (
+                <dl className="mt-8 grid grid-cols-1 sm:grid-cols-[max-content,1fr] gap-x-6 gap-y-2 border-t border-b border-line py-4 font-mono text-sm">
+                  {item.argumentHint ? (
+                    <>
+                      <dt className="text-ink-faint uppercase text-xs tracking-wider">arguments</dt>
+                      <dd className="text-ink">{item.argumentHint}</dd>
+                    </>
+                  ) : null}
+                  {item.allowedTools ? (
+                    <>
+                      <dt className="text-ink-faint uppercase text-xs tracking-wider">allowed-tools</dt>
+                      <dd className="text-ink">{item.allowedTools}</dd>
+                    </>
+                  ) : null}
+                </dl>
               ) : null}
 
-              {item.allowedTools ? (
-                <div className="mt-3 rounded-lg border border-line bg-paper-soft p-4 font-mono text-sm">
-                  <span className="text-ink-faint">allowed-tools  </span>
-                  <span className="text-ink">{item.allowedTools}</span>
-                </div>
-              ) : null}
-
-              <section className="mt-10">
-                <div className="flex items-center justify-between mb-3">
-                  <h2 className="text-eyebrow uppercase text-ink-faint">Source</h2>
-                  <span className="font-mono text-xs text-ink-faint">{item.slug}.md</span>
-                </div>
-                <pre className="rounded-lg border border-line bg-paper-soft p-5 overflow-x-auto text-sm leading-relaxed text-ink font-mono whitespace-pre-wrap break-words">
-                  {item.body}
-                </pre>
-              </section>
+              <article
+                className="prose-editorial mt-12"
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
             </div>
 
             <aside className="lg:sticky lg:top-20 lg:self-start space-y-6">
