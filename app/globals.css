@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  background: #FFFFFF;
+  color: #0A0A0A;
+  font-optical-sizing: auto;
+}
+
+.font-serif {
+  font-feature-settings: "ss01", "ss02";
+}
+
+.serif-display {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.numeral-watermark {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 7rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(22, 163, 74, 0.10);
+  pointer-events: none;
+  user-select: none;
+}
+
+.dot-leader {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: 0.35em;
+  color: #A1A1AA;
+  transform: translateY(-3px);
+  user-select: none;
+}
+
+::selection {
+  background: rgba(22, 163, 74, 0.18);
+  color: #0A0A0A;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #16A34A;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skip-nav {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 0.75rem;
+  background: #16A34A;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.skip-nav:focus {
+  left: 0;
+}
+
+/* Subtle dotted background on hero — darker dots for the light theme. */
+.bg-dots {
+  background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.06) 1px, transparent 0);
+  background-size: 22px 22px;
+}
