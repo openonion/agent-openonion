@@ -19,8 +19,17 @@ export default function ProfileHeader({
   itemCount: number
 }) {
   return (
-    <div className="border-b border-line">
-      <div className="mx-auto max-w-container px-6 lg:px-8 py-12 lg:py-16">
+    <div className="border-b border-line bg-paper-soft">
+      <div className="mx-auto max-w-container px-6 lg:px-8 py-14 lg:py-20">
+        <div className="flex items-center gap-3 text-ink-faint mb-8">
+          <span className="font-mono text-eyebrow uppercase tracking-[0.18em]">
+            §&nbsp;&nbsp;Profile
+          </span>
+          <span className="hidden sm:block h-px flex-1 max-w-[14rem] bg-line" />
+          <span className="hidden sm:inline font-serif italic text-sm">
+            agent dossier
+          </span>
+        </div>
         <div className="flex flex-col md:flex-row items-start gap-6 md:gap-8">
           {profile.avatar ? (
             <Image
@@ -31,7 +40,7 @@ export default function ProfileHeader({
               className="rounded-2xl border border-line"
             />
           ) : (
-            <div className="h-24 w-24 rounded-2xl bg-accent/20 border border-accent/40 flex items-center justify-center text-3xl text-accent-glow font-mono">
+            <div className="h-24 w-24 rounded-2xl bg-paper border border-line flex items-center justify-center text-3xl text-ink font-serif italic">
               {profile.name.slice(0, 1).toUpperCase()}
             </div>
           )}
@@ -43,7 +52,7 @@ export default function ProfileHeader({
               ) : null}
             </div>
             {profile.bio ? (
-              <p className="mt-3 text-ink-muted max-w-2xl">{profile.bio}</p>
+              <p className="mt-3 font-serif italic text-ink-muted text-lg max-w-2xl leading-relaxed">{profile.bio}</p>
             ) : null}
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 rounded-md border border-line bg-paper-soft px-2.5 py-1 font-mono text-xs text-ink-dim">
