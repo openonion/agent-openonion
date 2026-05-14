@@ -22,7 +22,10 @@ export default function ProfileHeader({
   return (
     <div className="bg-dots relative border-b border-line bg-paper">
       <div className="mx-auto max-w-container px-4 md:px-6 py-16 md:py-24">
-        <div className="mb-8 flex items-center gap-3 text-ink-faint">
+        <div
+          className="mb-8 flex items-center gap-3 text-ink-faint motion-safe:animate-rise"
+          style={{ animationDelay: '0ms' }}
+        >
           <span className="font-mono text-eyebrow uppercase">
             §&nbsp;&nbsp;Profile
           </span>
@@ -38,15 +41,22 @@ export default function ProfileHeader({
               alt={`${profile.name} avatar`}
               width={96}
               height={96}
-              className="rounded-lg border border-line"
+              className="rounded-lg border border-line motion-safe:animate-rise"
+              style={{ animationDelay: '80ms' }}
             />
           ) : (
-            <div className="flex h-24 w-24 items-center justify-center rounded-lg border border-line bg-paper-soft font-serif text-2xl italic text-ink">
+            <div
+              className="flex h-24 w-24 items-center justify-center rounded-lg border border-line bg-paper-soft font-serif text-2xl italic text-ink motion-safe:animate-rise"
+              style={{ animationDelay: '80ms' }}
+            >
               {profile.name.slice(0, 1).toUpperCase()}
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <div
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-1 motion-safe:animate-rise"
+              style={{ animationDelay: '160ms' }}
+            >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink">{profile.name}</h1>
               {profile.alias ? (
                 <span className="font-serif italic text-xl md:text-2xl text-accent-glow">
@@ -55,9 +65,17 @@ export default function ProfileHeader({
               ) : null}
             </div>
             {profile.bio ? (
-              <p className="mt-4 max-w-2xl font-serif text-xl italic leading-relaxed text-ink-muted">{profile.bio}</p>
+              <p
+                className="mt-4 max-w-2xl font-serif text-xl italic leading-relaxed text-ink-muted motion-safe:animate-rise"
+                style={{ animationDelay: '240ms' }}
+              >
+                {profile.bio}
+              </p>
             ) : null}
-            <div className="mt-4 flex flex-wrap items-center gap-3">
+            <div
+              className="mt-4 flex flex-wrap items-center gap-3 motion-safe:animate-rise"
+              style={{ animationDelay: '320ms' }}
+            >
               <span className="inline-flex min-h-[48px] items-center gap-2 rounded-md border border-line bg-paper-soft px-3 font-mono text-sm text-ink-muted">
                 <span className="text-accent-glow">●</span>
                 {shortAddress(profile.address)}
