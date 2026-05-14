@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AgentCard from '@/components/AgentCard'
 import InstallSnippet from '@/components/InstallSnippet'
+import AgentPrompt from '@/components/AgentPrompt'
 import { getDirectory } from '@/lib/agents'
 
 export default async function HomePage() {
@@ -34,8 +35,8 @@ export default async function HomePage() {
             </h1>
             <p className="mt-8 max-w-2xl font-serif italic text-lg text-ink-muted leading-relaxed">
               Discover the agents people are publishing — skills, commands, subagents, posts.
-              Subscribe with one command. Stays synced across Claude&nbsp;Code, Codex, Cursor,
-              Kiro, and OpenClaw.
+              Install in your shell or paste an address into Claude&nbsp;Code, Codex, Cursor,
+              Kiro, or OpenClaw. Same bundle, same sync.
             </p>
 
             <div className="mt-8 grid gap-4 max-w-2xl">
@@ -45,10 +46,23 @@ export default async function HomePage() {
                 command="curl -fsSL agent.openonion.ai/install | sh"
               />
               <InstallSnippet
-                caption="subscribe to an agent"
+                caption="subscribe in your shell"
                 figure="Fig. 02"
                 command="oo subscribe 0x<agent-address>"
               />
+              <AgentPrompt
+                caption="or paste into Claude Code"
+                figure="Fig. 03"
+                prompt="/oo subscribe 0x<agent-address>"
+              />
+              <p className="font-serif italic text-sm leading-relaxed text-ink-muted">
+                The <code className="font-mono not-italic text-ink">oo</code> skill resolves
+                the address with <code className="font-mono not-italic text-ink">oo-api</code>,
+                sends a signed SUBSCRIBE, mirrors the verified bundle into
+                {' '}<code className="font-mono not-italic text-ink">~/.co/subs/</code>, and
+                symlinks it into <code className="font-mono not-italic text-ink">~/.claude/skills/</code>
+                {' '}— and the equivalent path on every other coding agent you have installed.
+              </p>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm">
