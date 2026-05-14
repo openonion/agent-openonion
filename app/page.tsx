@@ -82,6 +82,88 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Inside Claude Code — annotated transcript */}
+        <section className="border-t border-line bg-paper-soft">
+          <div className="mx-auto max-w-container px-4 md:px-6 py-16 md:py-24">
+            <div className="max-w-2xl mb-10">
+              <div className="flex items-center gap-3 text-ink-faint">
+                <span className="font-mono text-eyebrow uppercase tracking-[0.18em]">
+                  §&nbsp;&nbsp;Vol. I·b — Inside Claude Code
+                </span>
+                <span className="hidden sm:block h-px flex-1 max-w-[10rem] bg-line" />
+                <span className="hidden sm:inline font-serif italic text-sm">a transcript</span>
+              </div>
+              <h2 className="mt-4 text-2xl md:text-3xl lg:text-4xl text-ink font-semibold">
+                From paste to installed,{' '}
+                <span className="font-serif italic text-accent-glow">in four beats.</span>
+              </h2>
+              <p className="mt-4 font-serif italic text-lg text-ink-muted">
+                What you see in the chat when the <code className="font-mono not-italic text-ink">oo</code>
+                {' '}skill resolves a subscribe.
+              </p>
+            </div>
+
+            <figure className="relative overflow-hidden rounded-lg border border-line bg-paper">
+              <figcaption className="flex items-center gap-3 border-b border-line px-5 py-2.5">
+                <span className="shrink-0 whitespace-nowrap font-mono text-xs uppercase text-ink-dim">
+                  claude code · /oo subscribe 0x<span className="text-ink-faint">&lt;agent-address&gt;</span>
+                </span>
+                <span className="dot-leader" aria-hidden>{'·'.repeat(80)}</span>
+                <span className="shrink-0 font-serif italic text-xs text-ink-dim">Fig. 04</span>
+              </figcaption>
+
+              <ol className="divide-y divide-line/70 font-mono text-sm">
+                {[
+                  {
+                    step: 'I',
+                    label: 'trigger',
+                    title: 'Slash command routes to the oo skill',
+                    body: 'The oo skill installed at ~/.claude/skills/oo/ matches /oo and parses the 0x address from your message.',
+                  },
+                  {
+                    step: 'II',
+                    label: 'resolve',
+                    title: 'Fetch the signed profile from oo-api',
+                    body: 'GET https://oo.openonion.ai/api/relay/agents/0x…/profile → verify the publisher’s ed25519 signature locally. The relay never gets to vouch for itself.',
+                  },
+                  {
+                    step: 'III',
+                    label: 'subscribe',
+                    title: 'Send a signed SUBSCRIBE to the publisher',
+                    body: 'POST … /subscribe with {subscriber, publisher, timestamp, signature}. Wait for the publisher to accept — distribution is relay-based, not a git clone.',
+                  },
+                  {
+                    step: 'IV',
+                    label: 'fan-out',
+                    title: 'Mirror the verified bundle and symlink it',
+                    body: 'Mirror to ~/.co/subs/<alias>/, then symlink each skill into ~/.claude/skills/<alias>-<skill>/ — and the matching path on Codex, Cursor, Kiro, OpenClaw if you have them.',
+                  },
+                ].map(row => (
+                  <li key={row.step} className="flex items-start gap-5 px-5 py-5">
+                    <span className="serif-display shrink-0 select-none text-2xl md:text-3xl text-accent-glow/70 leading-none w-6 md:w-8">
+                      {row.step}
+                    </span>
+                    <div className="min-w-0">
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-eyebrow uppercase text-ink-faint">{row.label}</span>
+                      </div>
+                      <p className="mt-1 font-sans text-ink leading-snug">{row.title}</p>
+                      <p className="mt-1.5 font-sans text-xs text-ink-muted leading-relaxed">{row.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="border-t border-line px-5 py-3 flex items-center gap-3 text-xs text-ink-dim">
+                <span className="font-mono">→</span>
+                <span className="font-serif italic">
+                  Done. The author&apos;s skills are now callable from this chat.
+                </span>
+              </div>
+            </figure>
+          </div>
+        </section>
+
         {/* Agents */}
         <section id="agents" className="border-t border-line bg-paper-soft">
           <div className="mx-auto max-w-container px-4 md:px-6 py-16 md:py-24">
