@@ -7,6 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
   const entries: MetadataRoute.Sitemap = [
     { url: `${SITE}/`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
+    { url: `${SITE}/agents`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
   ]
 
   const aliases = await getAllAgentAliases()

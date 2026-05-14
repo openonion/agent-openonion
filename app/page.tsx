@@ -69,7 +69,7 @@ export default async function HomePage() {
 
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm">
               <Link
-                href="#agents"
+                href="/agents"
                 className="inline-flex items-center gap-1.5 text-ink hover:text-accent-glow"
               >
                 Browse agents <LuArrowRight className="h-4 w-4" />

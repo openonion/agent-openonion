@@ -30,6 +30,12 @@ export default function Header() {
         </span>
 
         <nav className="ml-auto flex items-center gap-2 text-slate-100">
+          <Link
+            href="/agents"
+            className="hidden sm:inline-flex min-h-[48px] items-center rounded-md px-3 font-mono text-sm hover:text-purple-400 hover:bg-gray-800 transition-colors"
+          >
+            agents
+          </Link>
           <a
             href="https://github.com/openonion/agent-openonion"
             aria-label="GitHub repository"
